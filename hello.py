@@ -1,5 +1,7 @@
 import json
 from flask import Flask, request, make_response, redirect, url_for
+from datetime import datetime
+
 app = Flask(__name__)
 app.debug = True
 app.what_am_i_thinking = 'what?'
@@ -131,7 +133,7 @@ def post_msg():
     if not author: 
         author = "Anonymous"
     msg = request.form.get('msg', '')
-    date = "now"
+    date = str(datetime.now())
     msg_obj = Message(author, msg, date)
     app.board_messages.append(msg_obj)
     return redirect(url_for('display_messages'))
